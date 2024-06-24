@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Print
-        run: echo "Print"
+        run: echo "Don't skip"
 
       - name: PR name
         run: echo ${{ github.event.pull_request.title }}
