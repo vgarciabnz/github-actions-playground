@@ -1,0 +1,21 @@
+on:
+  pull_request:
+    types:
+      - opened
+      - closed
+      - synchronize
+    branches:
+      - master
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print
+        run: echo "Print"
+
+      - name: PR name
+        run: echo ${{ github.event.pull_request.title }}
+
+      - name: Is merged
+        run: echo ${{ github.event.pull_request.merged }}
