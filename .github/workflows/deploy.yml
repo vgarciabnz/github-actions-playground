@@ -3,6 +3,7 @@ on:
     types:
       - opened
       - closed
+      - synchronize
     branches:
       - master
 
