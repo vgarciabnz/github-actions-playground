@@ -14,7 +14,7 @@ jobs:
         run: echo "Print"
 
       - name: PR name
-        run: echo ${github.event.pull_request.title}
+        run: echo ${{ github.event.pull_request.title }}
 
       - name: Is merged
-        run: echo ${github.event.pull_request.merged}
+        run: echo ${{ github.event.pull_request.merged }}
