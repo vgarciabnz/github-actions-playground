@@ -21,5 +21,5 @@ kotlin {
 }
 
 task("printVersion") {
-    println("Current version $version")
+    println("This comes from master $version")
 }
