@@ -26,3 +26,6 @@ jobs:
 
       - name: Print version
         run: ./gradlew printVersion
+
+      - name: Print commit id
+        run: git rev-parse HEAD
