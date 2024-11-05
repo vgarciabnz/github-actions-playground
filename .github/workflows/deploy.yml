@@ -29,3 +29,10 @@ jobs:
 
       - name: Print commit id
         run: git rev-parse HEAD
+
+      - run: |
+          git sw automatic
+          date > generated.txt
+          git add .
+          git commit -m "generated"
+          git push
