@@ -35,5 +35,5 @@ jobs:
             -F branchName=$DESTINATION_BRANCH \
             -F expectedHeadOid=$(git rev-parse HEAD) \
             -F commitMessage=$MESSAGE \
-            -F files[][path]=$FILE_TO_COMMIT -F files[][contents]=$(base64 -w0 $FILE_TO_COMMIT)
+            -F files[][path]="date" -F files[][contents]=$(base64 -w0 date)
             -F 'query=@.github/api/createCommitOnBranch.gql'
