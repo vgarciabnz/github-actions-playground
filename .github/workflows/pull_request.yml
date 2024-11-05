@@ -21,6 +21,7 @@ jobs:
 
       - name: Create dummy commit
         env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           FILE_TO_COMMIT: date
           DESTINATION_BRANCH: automatic
@@ -28,11 +29,11 @@ jobs:
           date > $FILE_TO_COMMIT 
           export TODAY=$( date -u '+%Y-%m-%d' )
           export MESSAGE="chore: regenerate $FILE_TO_COMMIT for $TODAY"
-          export SHA=$( git rev-parse $DESTINATION_BRANCH:$FILE_TO_COMMIT )
-          export CONTENT=$( base64 -i $FILE_TO_COMMIT )
-          gh api --method PUT /repos/:owner/:repo/contents/$FILE_TO_COMMIT \
-            --field message="$MESSAGE" \
-            --field content="$CONTENT" \
-            --field encoding="base64" \
-            --field branch="$DESTINATION_BRANCH" \
-            --field sha="$SHA"
+          
+          gh api graphql \
+            -F $githubRepository="owner/repo" \
+            -F branchName=$DESTINATION_BRANCH \
+            -F expectedHeadOid=$(git rev-parse HEAD) \
+            -F commitMessage=$MESSAGE \
+            -F files[][path]=$FILE_TO_COMMIT -F files[][contents]=$(base64 -w0 $FILE_TO_COMMIT)
+            -F 'query=@.github/api/createCommitOnBranch.gql'
