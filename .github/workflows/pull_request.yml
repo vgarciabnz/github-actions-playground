@@ -31,7 +31,7 @@ jobs:
           export MESSAGE="chore: regenerate $FILE_TO_COMMIT for $TODAY"
           
           gh api graphql \
-            -F $githubRepository="owner/repo" \
+            -F githubRepository=$GITHUB_REPOSITORY \
             -F branchName=$DESTINATION_BRANCH \
             -F expectedHeadOid=$(git rev-parse HEAD) \
             -F commitMessage=$MESSAGE \
