@@ -21,7 +21,7 @@ jobs:
 
       - name: Create dummy commit
         run: |
-          git sw automatic
+          git switch automatic
           date > generated.txt
           git add .
           git commit -m "generated"
