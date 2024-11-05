@@ -33,7 +33,7 @@ jobs:
           gh api graphql \
             -F githubRepository="vgarciabnz/github-actions-playground" \
             -F branchName=$DESTINATION_BRANCH \
-            -F expectedHeadOid=$(git rev-parse $DESTINATION_BRANCH) \
+            -F expectedHeadOid=$(git rev-parse automatic) \
             -F commitMessage="A commit message" \
             -F files[][path]="date" -F files[][contents]=$(base64 -w0 date) \
             -F 'query=@.github/api/createCommitOnBranch.gql'
