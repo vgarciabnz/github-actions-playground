@@ -1,7 +1,5 @@
 on:
-  pull_request:
-    branches:
-      - master
+  workflow_dispatch:
 
 jobs:
   publish:
@@ -21,19 +19,11 @@ jobs:
 
       - name: Create dummy commit
         env:
-          GH_TOKEN: ${{ github.token }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           FILE_TO_COMMIT: date
-          DESTINATION_BRANCH: automatic
         run: |
           date > $FILE_TO_COMMIT 
-          export TODAY=$( date -u '+%Y-%m-%d' )
-          export MESSAGE="chore: regenerate $FILE_TO_COMMIT for $TODAY"
-          
-          gh api graphql \
-            -F githubRepository="vgarciabnz/github-actions-playground" \
-            -F branchName=$DESTINATION_BRANCH \
-            -F expectedHeadOid=$(git rev-parse origin/automatic) \
-            -F commitMessage="A commit message" \
-            -F files[][path]="date" -F files[][contents]=$(base64 -w0 date) \
-            -F 'query=@.github/api/createCommitOnBranch.gql'
+
+      - name: Push to branch
+        uses: flex-development/gh-commit@1.0.0
+        with:
+          message: "Commit from flex"
