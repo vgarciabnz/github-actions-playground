@@ -1,0 +1,29 @@
+on:
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: 17
+          distribution: temurin
+          cache: 'gradle'
+      - name: Change wrapper permission
+        run: chmod +x ./gradlew
+
+      - name: Create dummy commit
+        env:
+          FILE_TO_COMMIT: date
+        run: |
+          date > $FILE_TO_COMMIT 
+
+      - name: Push to branch
+        uses: flex-development/gh-commit@1.0.0
+        with:
+          message: "Commit from flex"
