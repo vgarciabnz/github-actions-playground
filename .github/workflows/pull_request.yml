@@ -8,4 +8,4 @@ jobs:
     with:
       java_version: 21
       gradle_args: "-PremoveSnapshotSuffix"
-      output_folder: "dokka"
+      output_folder: "dokkaHtml/api"
