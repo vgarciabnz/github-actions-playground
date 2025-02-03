@@ -1,5 +1,6 @@
 on:
   workflow_dispatch:
+  pull_request:
 
 jobs:
   publish:
@@ -8,22 +9,8 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
+      - name: Publish docs
+        uses: vgarciabnz/workflows/.github/workflows/publish-dokka-to-github-pages.yml@main
         with:
-          java-version: 17
-          distribution: temurin
-          cache: 'gradle'
-      - name: Change wrapper permission
-        run: chmod +x ./gradlew
-
-      - name: Create dummy commit
-        env:
-          FILE_TO_COMMIT: date
-        run: |
-          date > $FILE_TO_COMMIT 
-
-      - name: Push to branch
-        uses: flex-development/gh-commit@1.0.0
-        with:
-          message: "Commit from flex"
+          java_version: 21
+          gradle_args: "-PremoveSnapshotSuffix"
