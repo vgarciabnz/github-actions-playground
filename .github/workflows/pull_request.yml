@@ -4,13 +4,7 @@ on:
 
 jobs:
   publish:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Publish docs
-        uses: vgarciabnz/workflows/.github/workflows/publish-dokka-to-github-pages.yml@main
-        with:
-          java_version: 21
-          gradle_args: "-PremoveSnapshotSuffix"
+    uses: vgarciabnz/workflows/.github/workflows/publish-dokka-to-github-pages.yml@main
+    with:
+      java_version: 21
+      gradle_args: "-PremoveSnapshotSuffix"
