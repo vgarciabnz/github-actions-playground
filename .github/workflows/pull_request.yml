@@ -7,5 +7,3 @@ jobs:
     uses: vgarciabnz/workflows/.github/workflows/publish-dokka-to-github-pages.yml@main
     with:
       java_version: 21
-      gradle_args: "-PremoveSnapshotSuffix"
-      output_folder: "dokkaHtml/api"
