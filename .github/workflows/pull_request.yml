@@ -3,7 +3,14 @@ on:
   pull_request:
 
 jobs:
-  publish:
-    uses: vgarciabnz/workflows/.github/workflows/publish-dokka-to-github-pages.yml@main
+  get_version:
+    uses: vgarciabnz/workflows/.github/workflows/get-gradle-version.yml@main
     with:
-      java_version: 21
+      java_version: 17
+      gradle_args: "-PremoveSnapshotSuffix"
+
+  release:
+    runs-on: ubuntu-latest
+    need: get_version
+    steps:
+      - run: echo ${{ needs.get_version.outputs.version }}
