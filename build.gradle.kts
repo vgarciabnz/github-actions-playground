@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "org.example"
-version = "1.3.1-SNAPSHOT"
+version = "1.3.2-SNAPSHOT"
 
 if (project.hasProperty("removeSnapshotSuffix")) {
     val mainVersion = (version as String).split("-SNAPSHOT")[0]
