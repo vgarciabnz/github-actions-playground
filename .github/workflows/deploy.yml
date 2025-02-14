@@ -10,7 +10,7 @@ on:
 jobs:
   release:
     if: github.event.pull_request.merged == true && !contains(github.event.pull_request.title, '[skip deploy]')
-    uses: vgarciabnz/workflows/.github/workflows/publish-gradle-project-release-to-github.yml@main
+    uses: dhis2/workflows/.github/workflows/gradle-publish-release-to-github.yml@77a3f27743d20409e692dec9a2ba676fc3b31360
     with:
       java_version: 17
       gradle_args: "-PremoveSnapshotSuffix"
