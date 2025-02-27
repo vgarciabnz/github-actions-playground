@@ -3,20 +3,7 @@ on:
   pull_request:
 
 jobs:
-  get_version:
-    uses: vgarciabnz/workflows/.github/workflows/get-gradle-version.yml@main
-    with:
-      java_version: 17
-      gradle_args: "-PremoveSnapshotSuffix"
-
-  release:
-    runs-on: ubuntu-latest
-    needs: get_version
-    steps:
-      - run: echo ${{ needs.get_version.outputs.version }}
-
   step:
     runs-on: ubuntu-latest
-    needs: release
     steps:
       - run: echo ${{ github.event_name }}
