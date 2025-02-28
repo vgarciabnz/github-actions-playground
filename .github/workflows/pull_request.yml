@@ -5,6 +5,8 @@ on:
 jobs:
   print:
     runs-on: ubuntu-latest
-    if: ${{ github.event.pull_request.merged == true || (github.event_name == 'workflow_dispatch' && github.ref_name == 'main') }}
+    if: ${{ github.event.pull_request.merged == true || (github.event_name == 'workflow_dispatch' && github.ref_name == 'github-release') }}
     steps:
       - run: echo ${{ github.event_name }}
+      - run: echo ${{ github.ref_name }}
+      - run: echo ${{ github.ref }}
