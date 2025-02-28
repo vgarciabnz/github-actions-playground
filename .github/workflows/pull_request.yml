@@ -3,7 +3,8 @@ on:
   pull_request:
 
 jobs:
-  step:
+  print:
     runs-on: ubuntu-latest
+    if: ${{ github.event.pull_request.merged == true || (github.event_name == 'workflow_dispatch' && github.ref_name == 'main') }}
     steps:
       - run: echo ${{ github.event_name }}
