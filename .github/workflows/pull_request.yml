@@ -10,3 +10,9 @@ jobs:
       - run: echo ${{ github.event_name }}
       - run: echo ${{ github.ref_name }}
       - run: echo ${{ github.ref }}
+
+  second:
+    runs-on: ubuntu-latest
+    if: ${{ !contains(github.event.pull_request.title, '[skip publish]') }}
+    steps:
+      - run: echo ${{ github.event_name }}
