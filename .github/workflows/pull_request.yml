@@ -5,15 +5,23 @@ on:
 jobs:
   print:
     runs-on: ubuntu-latest
-    if: ${{ github.event.pull_request.merged == true || (github.event_name == 'workflow_dispatch' && github.ref_name == 'github-release') }}
     steps:
-      - run: echo ${{ github.event_name }}
-      - run: echo ${{ github.ref_name }}
-      - run: echo ${{ github.ref }}
+      - name: Checkout
+        uses: actions/checkout@v4
 
-  second:
-    runs-on: ubuntu-latest
-    if: ${{ !contains(github.event.pull_request.title, '[skip publish]') }}
-    needs: print
-    steps:
-      - run: echo ${{ github.event_name }}
+      - name: Import GPG key
+        uses: crazy-max/ghaction-import-gpg@v6
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.PASSPHRASE }}
+          git_user_signingkey: true
+          git_commit_gpgsign: true
+
+      - name: Sign commit and push changes
+        run: |
+          echo foo > bar.txt
+          git add .
+          git commit -S -m "This commit is signed!"
+          git push
+      - run: ./scripts/create_commit.sh
+        shell: bash
