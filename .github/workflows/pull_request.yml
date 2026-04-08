@@ -18,7 +18,7 @@ jobs:
       - name: Print branch info
         run: ./gradlew printBranchInfo
         env:
-          GIT_BRANCH: ${{ github.ref_name }}
+          GIT_BRANCH: ${{ github.head_ref }}
           GIT_BRANCH_DEST: ${{ github.base_ref }}
           PULL_REQUEST: ${{ github.event.pull_request.number }}
 

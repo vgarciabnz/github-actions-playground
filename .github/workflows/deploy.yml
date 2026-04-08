@@ -21,8 +21,6 @@ jobs:
         run: ./gradlew printBranchInfo
         env:
           GIT_BRANCH: ${{ github.ref_name }}
-          GIT_BRANCH_DEST: ${{ github.base_ref }}
-          PULL_REQUEST: ${{ github.event.pull_request.number }}
 
   release:
     if: github.event.pull_request.merged == true && !contains(github.event.pull_request.title, '[skip deploy]')
