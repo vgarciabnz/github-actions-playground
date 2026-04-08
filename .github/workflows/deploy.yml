@@ -1,13 +1,19 @@
 on:
   pull_request:
     types:
-      - opened
       - closed
-      - synchronize
-    branches:
-      - master
 
 jobs:
+  sonar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print branch info
+        run: ./gradlew printBranchInfo
+        env:
+          GIT_BRANCH: ${{ github.ref_name }}
+          GIT_BRANCH_DEST: ${{ github.base_ref }}
+          PULL_REQUEST: ${{ github.event.pull_request.number }}
+
   release:
     if: github.event.pull_request.merged == true && !contains(github.event.pull_request.title, '[skip deploy]')
     uses: dhis2/workflows/.github/workflows/gradle-publish-release-to-github.yml@77a3f27743d20409e692dec9a2ba676fc3b31360
