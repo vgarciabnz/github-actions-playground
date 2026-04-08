@@ -33,6 +33,16 @@ task("printVersion") {
     println("This comes from master $version")
 }
 
+task("printBranchInfo") {
+    val branch = System.getenv("GIT_BRANCH")
+    val targetBranch = System.getenv("GIT_BRANCH_DEST")
+    val pullRequestId = System.getenv("PULL_REQUEST")
+
+    branch.takeIf { !it.isNullOrEmpty() }?.let { println("branch $it") }
+    targetBranch.takeIf { !it.isNullOrEmpty() }?.let { println("target $it") }
+    pullRequestId.takeIf { !it.isNullOrEmpty() }?.let { println("PR $it") }
+}
+
 tasks.withType<DokkaTask>().configureEach {
     dokkaSourceSets {
         configureEach {
